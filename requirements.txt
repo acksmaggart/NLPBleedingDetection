@@ -1,0 +1,9 @@
+eHostess
+pandas
+numpy
+scikit-learn
+pycontextnlp
+unicodecsv
+keras
+tensorflow
+nltk
