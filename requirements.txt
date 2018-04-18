@@ -7,3 +7,4 @@ unicodecsv
 keras
 tensorflow
 nltk
+h5py
