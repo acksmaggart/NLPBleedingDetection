@@ -1,14 +1,14 @@
 import pandas as pd
 import numpy as np
-from sklearn.metrics import confusion_matrix
 
 d = pd.DataFrame({"GOLD" : gold, 
                   "RB" : pyConTextPredictions,
                   "ETDS" : etDSPredictions})
 
-d['RB'] = np.where(d.GOLD == d.RB, 1, 0).astype('int64')
-d['ETDS_AGREE'] = np.where(d.GOLD == d.ETDS, 1, 0).astype('int64')
+rb_positive = d.loc[d.GOLD == 1, "RB"]
+etds_positive = d.loc[d.GOLD == 1, "ETDS"]
 
+b = np.sum(np.where(np.logical_and(rb_positive==1, etds_positive==0), 1, 0), dtype=np.float)
+c = np.sum(np.where(np.logical_and(rb_positive==0, etds_positive==1), 1, 0), dtype=np.float)
 
-contingency = confusion_matrix(d.PYCONTEXT_AGREE, d.ETDS_AGREE)
-print(contingency)
+chi_square  = ((b - c) ** 2) / (b + c)
